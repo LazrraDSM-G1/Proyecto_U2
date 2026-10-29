@@ -1,96 +1,121 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
+    // Animaciones de entrada al aparecer los elementos en pantalla.
     const elementos = document.querySelectorAll(".reveal");
+
     if ("IntersectionObserver" in window) {
-        const observador = new IntersectionObserver((entradas, observer) => {
-            entradas.forEach((entrada) => {
+        const observador = new IntersectionObserver(function (entradas, observer) {
+            entradas.forEach(function (entrada) {
                 if (entrada.isIntersecting) {
-                    entrada.target.classList.add("is-visible");
+                    entrada.target.classList.add("visible");
                     observer.unobserve(entrada.target);
                 }
             });
-        }, {
-            threshold: 0.12
+        }, { threshold: 0.12 });
+
+        elementos.forEach(function (elemento) {
+            observador.observe(elemento);
         });
-        elementos.forEach((elemento) => observador.observe(elemento));
     } else {
-        elementos.forEach((elemento) => {
-            elemento.classList.add("is-visible");
+        elementos.forEach(function (elemento) {
+            elemento.classList.add("visible");
         });
     }
-    const botonesFiltro = document.querySelectorAll("[data-filter]");
-    const productos = document.querySelectorAll("[data-category]");
-    botonesFiltro.forEach((boton) => {
-        boton.addEventListener("click", () => {
-            const filtro = boton.dataset.filter;
-            botonesFiltro.forEach((otroBoton) => {
-                otroBoton.classList.remove("is-active");
-                otroBoton.setAttribute("aria-pressed", "false");
+
+    // Filtro de productos en la página de teléfonos.
+    const botonesFiltro = document.querySelectorAll(".filter-btn");
+    const productos = document.querySelectorAll(".product-item");
+
+    botonesFiltro.forEach(function (boton) {
+        boton.addEventListener("click", function () {
+            botonesFiltro.forEach(function (otroBoton) {
+                otroBoton.classList.remove("active");
             });
-            boton.classList.add("is-active");
-            boton.setAttribute("aria-pressed", "true");
-            productos.forEach((producto) => {
+            boton.classList.add("active");
+
+            const filtro = boton.dataset.filter;
+            productos.forEach(function (producto) {
                 const categoria = producto.dataset.category;
                 const mostrar = filtro === "todos" || categoria === filtro;
                 producto.classList.toggle("is-hidden", !mostrar);
             });
         });
     });
-    const botonesVistaRapida = document.querySelectorAll("[data-product]");
-    const aviso = document.getElementById("toastMessage");
-    botonesVistaRapida.forEach((boton) => {
-        boton.addEventListener("click", () => {
-            const producto = boton.dataset.product || "este producto";
-            if (aviso) {
-                aviso.textContent = `Seleccionaste ${producto}. Esta función es una demostración.`;
-                aviso.classList.add("is-visible");
-                aviso.setAttribute("role", "status");
-                window.setTimeout(() => {
-                    aviso.classList.remove("is-visible");
-                }, 3000);
-            } else {
-                window.alert(`Seleccionaste ${producto}. Esta función es una demostración.`);
-            }
+
+    // Mensaje emergente para los botones "Ver detalles".
+    const botonesDetalles = document.querySelectorAll(".quick-view");
+    const toast = document.getElementById("toastMessage");
+    let temporizadorToast;
+
+    botonesDetalles.forEach(function (boton) {
+        boton.addEventListener("click", function () {
+            if (!toast) return;
+            toast.textContent = boton.dataset.product + ": consulta disponibilidad y características mediante el formulario de contacto.";
+            toast.classList.add("show");
+            clearTimeout(temporizadorToast);
+            temporizadorToast = setTimeout(function () {
+                toast.classList.remove("show");
+            }, 3800);
         });
     });
-    const campoMensaje = document.getElementById("mensaje");
-    const contadorMensaje = document.getElementById("contadorMensaje");
-    function actualizarContador() {
-        if (!campoMensaje || !contadorMensaje) return;
-        contadorMensaje.textContent = `${campoMensaje.value.length}/500 caracteres`;
+
+    // Contador de caracteres del mensaje del formulario.
+    const mensaje = document.getElementById("mensaje");
+    const contador = document.getElementById("contador");
+
+    if (mensaje && contador) {
+        mensaje.addEventListener("input", function () {
+            contador.textContent = mensaje.value.length + " / 500 caracteres";
+        });
     }
-    if (campoMensaje && contadorMensaje) {
-        campoMensaje.addEventListener("input", actualizarContador);
-        actualizarContador();
-    }
+
+    // Validación del formulario con HTML5 y JavaScript.
     const formulario = document.getElementById("contactForm");
+
     if (formulario) {
-        formulario.addEventListener("submit", (evento) => {
+        const telefono = document.getElementById("telefono");
+        const successBox = document.getElementById("formSuccess");
+        const successText = document.getElementById("successText");
+
+        formulario.addEventListener("submit", function (evento) {
             evento.preventDefault();
+
+            // El teléfono es opcional, pero si se escribe debe tener 10 dígitos.
+            if (telefono.value.trim() === "") {
+                telefono.setCustomValidity("");
+            } else if (!/^[0-9]{10}$/.test(telefono.value.trim())) {
+                telefono.setCustomValidity("Escribe exactamente 10 dígitos.");
+            } else {
+                telefono.setCustomValidity("");
+            }
+
+            formulario.classList.add("was-validated");
+
             if (!formulario.checkValidity()) {
-                formulario.reportValidity();
+                const primerInvalido = formulario.querySelector(":invalid");
+                if (primerInvalido) primerInvalido.focus();
+                if (successBox) successBox.hidden = true;
                 return;
             }
-            const telefono = document.getElementById("telefono");
-            if (telefono && telefono.value.trim() !== "") {
-                const numero = telefono.value.trim();
-                if (!/^\d{10}$/.test(numero)) {
-                    telefono.setCustomValidity("Escribe un teléfono de exactamente 10 dígitos.");
-                    telefono.reportValidity();
-                    telefono.setCustomValidity("");
-                    return;
-                }
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const interes = document.getElementById("interes").value;
+
+            if (successText) {
+                successText.textContent = "Gracias, " + nombre + ". Tu consulta sobre \"" + interes + "\" quedó validada en esta demostración.";
             }
-            let estado = document.getElementById("formStatus");
-            if (!estado) {
-                estado = document.createElement("div");
-                estado.id = "formStatus";
-                estado.className = "alert alert-success mt-3";
-                estado.setAttribute("role", "status");
-                formulario.appendChild(estado);
+            if (successBox) {
+                successBox.hidden = false;
+                successBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
             }
-            estado.textContent = "¡Gracias! El formulario se validó correctamente. Este proyecto es una demostración y no envía datos a un servidor.";
+
             formulario.reset();
-            actualizarContador();
+            formulario.classList.remove("was-validated");
+            if (contador) contador.textContent = "0 / 500 caracteres";
+            telefono.setCustomValidity("");
+        });
+
+        telefono.addEventListener("input", function () {
+            telefono.setCustomValidity("");
         });
     }
 });
