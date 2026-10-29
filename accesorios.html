@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explora accesorios para teléfonos Pixel, como fundas, audífonos, relojes y cargadores.">
     <title>Accesorios | Pixel Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,20 +13,20 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg" aria-label="Navegación principal">
             <div class="container">
                 <a class="navbar-brand" href="index.html">Pixel Store</a>
                 <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
                     aria-controls="menuPrincipal" aria-expanded="false"
-                    aria-label="Abrir menú">
+                    aria-label="Abrir o cerrar menú de navegación">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="menuPrincipal">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="telefonos.html">Teléfonos</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="accesorios.html">Accesorios</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="accesorios.html">Accesorios</a></li>
                         <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
                     </ul>
@@ -34,15 +35,15 @@
         </nav>
     </header>
     <main class="container py-5">
-        <section class="page-hero mb-5">
+        <section class="page-hero mb-5" aria-labelledby="tituloPagina">
             <p class="eyebrow">COMPLEMENTA TU PIXEL</p>
-            <h1>Accesorios para tu día a día</h1>
+            <h1 id="tituloPagina">Accesorios para tu día a día</h1>
             <p>Encuentra complementos para proteger, escuchar y aprovechar mejor tu dispositivo.</p>
         </section>
         <section class="row g-4" aria-label="Catálogo de accesorios">
             <div class="col-md-6 col-lg-3">
                 <article class="product-card h-100">
-                    <img class="img-fluid" src="https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?auto=format&fit=crop&w=600&q=80" alt="Funda para teléfono">
+                    <img class="img-fluid" loading="lazy" src="https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?auto=format&fit=crop&w=600&q=80" alt="Funda para teléfono móvil">
                     <div class="p-3">
                         <p class="eyebrow">PROTECCIÓN</p>
                         <h2>Fundas</h2>
@@ -53,7 +54,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <article class="product-card h-100">
-                    <img class="img-fluid" src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=600&q=80" alt="Audífonos inalámbricos">
+                    <img class="img-fluid" loading="lazy" src="https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=600&q=80" alt="Audífonos inalámbricos para escuchar música">
                     <div class="p-3">
                         <p class="eyebrow">AUDIO</p>
                         <h2>Audífonos</h2>
@@ -64,7 +65,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <article class="product-card h-100">
-                    <img class="img-fluid" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80" alt="Reloj inteligente">
+                    <img class="img-fluid" loading="lazy" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80" alt="Reloj inteligente de pulsera">
                     <div class="p-3">
                         <p class="eyebrow">TECNOLOGÍA</p>
                         <h2>Relojes</h2>
@@ -75,7 +76,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <article class="product-card h-100">
-                    <img class="img-fluid" src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=600&q=80" alt="Accesorios de carga">
+                    <img class="img-fluid" loading="lazy" src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=600&q=80" alt="Accesorios electrónicos para carga">
                     <div class="p-3">
                         <p class="eyebrow">ENERGÍA</p>
                         <h2>Cargadores</h2>
@@ -85,19 +86,19 @@
                 </article>
             </div>
         </section>
-        <section class="note-banner mt-5 p-4">
-            <h2>Completa tu experiencia Pixel</h2>
+        <section class="note-banner mt-5 p-4" aria-labelledby="tituloConsejo">
+            <h2 id="tituloConsejo">Completa tu experiencia Pixel</h2>
             <p class="mb-0">Elige accesorios que se adapten a tus necesidades y revisa la compatibilidad con tu dispositivo antes de comprar.</p>
         </section>
     </main>
     <footer class="site-footer mt-5">
         <div class="container py-4 d-flex flex-column flex-md-row justify-content-between gap-3">
             <p class="mb-0">© 2026 Pixel Store. Proyecto escolar.</p>
-            <div class="d-flex gap-3">
+            <nav class="d-flex gap-3" aria-label="Navegación del pie de página">
                 <a href="index.html">Inicio</a>
                 <a href="telefonos.html">Teléfonos</a>
                 <a href="contacto.html">Contacto</a>
-            </div>
+            </nav>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
