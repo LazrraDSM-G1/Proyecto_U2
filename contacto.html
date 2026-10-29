@@ -59,6 +59,29 @@
                         <input type="email" class="form-control" id="correo" name="correo" placeholder="nombre@ejemplo.com">
                     </div>
                     <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono (opcional)</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="10 dígitos" inputmode="numeric" maxlength="10">
+                    </div>
+                    <div class="mb-3">
+                        <label for="interes" class="form-label">¿Qué producto te interesa?</label>
+                        <select class="form-select" id="interes" name="interes">
+                            <option value="">Selecciona una opción</option>
+                            <option value="telefonos">Teléfonos Pixel</option>
+                            <option value="accesorios">Accesorios</option>
+                            <option value="otro">Otra consulta</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="presupuesto" class="form-label">Presupuesto aproximado</label>
+                        <select class="form-select" id="presupuesto" name="presupuesto">
+                            <option value="">Selecciona un rango</option>
+                            <option value="menos-5000">Menos de $5,000 MXN</option>
+                            <option value="5000-10000">$5,000 a $10,000 MXN</option>
+                            <option value="mas-10000">Más de $10,000 MXN</option>
+                            <option value="sin-definir">Aún no lo sé</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="mensaje" class="form-label">Mensaje</label>
                         <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos qué necesitas"></textarea>
                     </div>
